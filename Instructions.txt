@@ -1,0 +1,5 @@
+[] Understanding parameters
+[] Understanding method overloading
+
+Due:
+Hangman! Using file input for the word database, create a game of hangman. Demonstrate parameter passing and proper input validation.
