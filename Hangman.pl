@@ -7,7 +7,7 @@ use 5.14.1;
 use warnings;
 
 my (@words, @splitWord, @guessedLetters);
-my ($randomWord, $chosenAnswer, $continueInt);
+my ($randomWord, $chosenAnswer, $continueInt, $guess);
 
 use constant WORDSIN => "./words.txt";
 use constant NO => 0;
@@ -17,10 +17,11 @@ sub main {
      @splitWord = [0];
      @guessedLetters = [0];
           setContinueInt();
-          while ($continueInt == YES ){
           readData();
           pickWord();
           seperateWord();
+          while ($continueInt == YES ){
+          printSpaces();
           makeGuess();
           #printWord();
      }
@@ -29,27 +30,41 @@ sub main {
 
 main();
 
-sub makeGuess {
-     my $guess; 
-     print "What letter would you like to guess? :";
-     chomp ($guess = <STDIN>);
-     if ($guess != /abc/) {
-          print "You must choose a letter";
+sub printSpaces {
+     my $size = @splitWord;
+     my $counter = 0;
+     my @emptySpace = [0];
+     for (my $i = 0; $i < $size; $i++){
+          $emptySpace[$i] = "_";
+     }
+     
+     for (my $i = 0; $i < $size; $i++){
+          print "$emptySpace[$i] ";
      }
      
 }
 
-sub setContinueInt{
-	use constant "RULES" => 2;
-	if (!(defined $continueInt)){
-		$continueInt = 0;
-	} while ($continueInt != 1){
-		print ("\n\tWould You like to play a game of hangman? (0 for no 1 for yes)");
-		chomp ($continueInt = <STDIN>);
-		} if ($continueInt == 0){
-			die;
-		}
+sub makeGuess {
+     print "\nWhat letter would you like to guess? :";
+     chomp ($guess = <STDIN>);
+     if ($guess =~ /[0-9]/) {
+          print "Not a letter!";
+          $guess = ();
+     } else {
+          
+
+     }
 }
+
+sub setContinueInt {
+	if (!(defined $continueInt)) { 
+		print "Would you like to play a game of hangman?! (0=no, 1=yes) ";
+		chomp ($continueInt = <STDIN>);
+	} else {
+		$continueInt = YES;
+	}
+}
+
 
 
 sub seperateWord {
