@@ -6,8 +6,8 @@
 use 5.14.1;
 use warnings;
 
-my (@words, @splitWord, @guessedLetters, @emptySpace, @correctGuess);
-my ($randomWord, $chosenAnswer, $continueInt, $guess, $counter);
+my (@words, @splitWord, @emptySpace, @correctGuess);
+my ($randomWord, $chosenAnswer, $continueInt, $guess, $counter, $wrongCounter);
 
 use constant WORDSIN => "./words.txt";
 use constant NO => 0;
@@ -16,7 +16,6 @@ use constant MAX_LOSS => 6;
 
 sub main {
      @splitWord = [0];
-     @guessedLetters = [0];
      @emptySpace = [0];
      @correctGuess = [0]; 
           setContinueInt();
@@ -27,7 +26,7 @@ sub main {
           while ($continueInt == YES ){
           printWord();
           makeGuess();
-          printWord2();
+          checkForWin();
           
      }
 
@@ -45,7 +44,6 @@ sub setSpaces {
 
 sub makeGuess {
      my $size = @splitWord;
-
      $counter = 0;
      my $correct = 0;
      print "\nWhat letter would you like to guess? :";
@@ -70,7 +68,10 @@ sub makeGuess {
           }
           
            if ($correct != 1 ) {
-                print "hi\n";
+               $wrongCounter++;
+               if ($wrongCounter >= $size){
+                    print "FAIL";
+               }
            }
            
      }
@@ -121,9 +122,12 @@ sub printWord {
      
 }
 
-sub printWord2{
-          my $size2 = @correctGuess;
-     for (my $j = 0; $j < $size2; $j++){
-          print "$correctGuess[$j]\n";
-     }
+sub checkForWin{
+     
+          my $size = @correctGuess;
+          if (@correctGuess eq @splitWord){
+               print "You Won!";
+               sleep 2;
+          }
+        
 }
