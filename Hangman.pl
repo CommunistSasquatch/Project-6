@@ -6,54 +6,75 @@
 use 5.14.1;
 use warnings;
 
-my (@words, @splitWord, @guessedLetters);
-my ($randomWord, $chosenAnswer, $continueInt, $guess);
+my (@words, @splitWord, @guessedLetters, @emptySpace, @correctGuess);
+my ($randomWord, $chosenAnswer, $continueInt, $guess, $counter);
 
 use constant WORDSIN => "./words.txt";
 use constant NO => 0;
 use constant YES => 1;
+use constant MAX_LOSS => 6;
 
 sub main {
      @splitWord = [0];
      @guessedLetters = [0];
+     @emptySpace = [0];
+     @correctGuess = [0]; 
           setContinueInt();
           readData();
           pickWord();
           seperateWord();
+          setSpaces();
           while ($continueInt == YES ){
-          printSpaces();
+          printWord();
           makeGuess();
-          #printWord();
+          printWord2();
+          
      }
 
 }
 
 main();
 
-sub printSpaces {
+sub setSpaces {
      my $size = @splitWord;
      my $counter = 0;
-     my @emptySpace = [0];
      for (my $i = 0; $i < $size; $i++){
           $emptySpace[$i] = "_";
      }
-     
-     for (my $i = 0; $i < $size; $i++){
-          print "$emptySpace[$i] ";
-     }
-     
 }
 
 sub makeGuess {
+     my $size = @splitWord;
+
+     $counter = 0;
+     my $correct = 0;
      print "\nWhat letter would you like to guess? :";
      chomp ($guess = <STDIN>);
      if ($guess =~ /[0-9]/) {
           print "Not a letter!";
           $guess = ();
      } else {
-          
+          for (my $j = 0; $j < $size; $j++){
+               if ($guess eq $splitWord[$j]){
+                    $correctGuess[$j] = $guess;
+                    $counter++;
+               }  
+          }
 
+          for (my $i = 0; $i < $size; $i++){
+               if ($guess eq $splitWord[$i]){
+                    $emptySpace[$i] = $guess;
+                    $correct = 1;
+                    
+               } 
+          }
+          
+           if ($correct != 1 ) {
+                print "hi\n";
+           }
+           
      }
+     
 }
 
 sub setContinueInt {
@@ -95,7 +116,14 @@ sub pickWord {
 sub printWord {
      my $size = @splitWord;
      for (my $i = 0; $i < $size; $i++){
-          print "$splitWord[$i]\n";
+          print "$emptySpace[$i] ";
      }
      
+}
+
+sub printWord2{
+          my $size2 = @correctGuess;
+     for (my $j = 0; $j < $size2; $j++){
+          print "$correctGuess[$j]\n";
+     }
 }
