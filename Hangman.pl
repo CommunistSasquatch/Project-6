@@ -13,23 +13,22 @@ use constant WORDSIN => "./words.txt";
 use constant NO => 0;
 use constant YES => 1;
 use constant MAX_LOSS => 6;
+@splitWord = [0];
+@emptySpace = [0];
+@correctGuess = [0];
 
-sub main {
-     @splitWord = [0];
-     @emptySpace = [0];
-     @correctGuess = [0]; 
-          setContinueInt();
-          readData();
-          pickWord();
-          seperateWord();
-          setSpaces();
-          while ($continueInt == YES ){
+sub main { 
+     setContinueInt();
+     readData();
+     pickWord();
+     seperateWord();
+     setSpaces();
+     while ($continueInt == YES ){
           printWord();
           makeGuess();
           checkForWin();
           
      }
-
 }
 
 main();
@@ -71,12 +70,9 @@ sub makeGuess {
                               $correct = 0;
                          }
                     }
-                    
                } 
-          }
-           
+          }  
      }
-     
 }
 
 sub setContinueInt {
@@ -88,10 +84,8 @@ sub setContinueInt {
 	}
 }
 
-
-
 sub seperateWord {
-    my $size = @splitWord;
+     my $size = @splitWord;
      @splitWord = split(//, $chosenAnswer);
 }
 
@@ -111,25 +105,21 @@ sub pickWord {
      my $size = @words;
 	$randomWord = (int (rand ($size)));
      $chosenAnswer = $words[$randomWord];
-     
 }
 sub printWord {
      my $size = @splitWord;
      for (my $i = 0; $i < $size; $i++){
           print "$emptySpace[$i] ";
      }
-     
 }
 
 sub checkForWin{
-          my $size = @correctGuess;
-          if (@correctGuess eq @splitWord){
-               $continueInt = ();
-               print "You Won!\n";
-               sleep 2;
-               system "cls";
-               main();
-               
-          }
-        
+     my $size = @correctGuess;
+     if (@correctGuess eq @splitWord){
+          $continueInt = ();
+          print "You Won!\n";
+          sleep 2;
+          system "cls";
+          main();   
+          } 
 }
