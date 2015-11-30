@@ -13,9 +13,9 @@ use constant WORDSIN => "./words.txt";
 use constant NO => 0;
 use constant YES => 1;
 use constant MAX_LOSS => 6;
-@splitWord = [0];
-@emptySpace = [0];
-@correctGuess = [0];
+@splitWord = [];
+@emptySpace = [];
+@correctGuess = [];
 
 sub main { 
      setContinueInt();
