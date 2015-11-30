@@ -27,7 +27,6 @@ sub main {
           printWord();
           makeGuess();
           checkForWin();
-          
      }
 }
 
@@ -65,7 +64,7 @@ sub makeGuess {
                     if ($correct != 1){
                          $wrongCounter++;
                          if ($wrongCounter >= $size){
-                         print "\nFAIL";
+                              print "\nFAIL";
                          } else {
                               $correct = 0;
                          }
@@ -91,19 +90,19 @@ sub seperateWord {
 
 sub readData {
      my $IN;
-	@words = ();
-	my $counter = 0;
-	open ($IN, '<', WORDSIN);
-	while (<$IN>) {
-		chomp ($words[$counter] = $_);
-		$counter++;
+     @words = ();
+     my $counter = 0;
+     open ($IN, '<', WORDSIN);
+     while (<$IN>) {
+          chomp ($words[$counter] = $_);
+          $counter++;
 	}
 	close $IN;
 }
 
 sub pickWord {
      my $size = @words;
-	$randomWord = (int (rand ($size)));
+	 $randomWord = (int (rand ($size)));
      $chosenAnswer = $words[$randomWord];
 }
 sub printWord {
@@ -121,5 +120,5 @@ sub checkForWin{
           sleep 2;
           system "cls";
           main();   
-          } 
+     } 
 }
