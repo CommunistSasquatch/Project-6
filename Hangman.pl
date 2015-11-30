@@ -63,16 +63,17 @@ sub makeGuess {
                if ($guess eq $splitWord[$i]){
                     $emptySpace[$i] = $guess;
                     $correct = 1;
+                    if ($correct != 1){
+                         $wrongCounter++;
+                         if ($wrongCounter >= $size){
+                         print "\nFAIL";
+                         } else {
+                              $correct = 0;
+                         }
+                    }
                     
                } 
           }
-          
-           if ($correct != 1 ) {
-               $wrongCounter++;
-               if ($wrongCounter >= $size){
-                    print "FAIL";
-               }
-           }
            
      }
      
@@ -112,8 +113,6 @@ sub pickWord {
      $chosenAnswer = $words[$randomWord];
      
 }
-
-
 sub printWord {
      my $size = @splitWord;
      for (my $i = 0; $i < $size; $i++){
@@ -123,11 +122,14 @@ sub printWord {
 }
 
 sub checkForWin{
-     
           my $size = @correctGuess;
           if (@correctGuess eq @splitWord){
-               print "You Won!";
+               $continueInt = ();
+               print "You Won!\n";
                sleep 2;
+               system "cls";
+               main();
+               
           }
         
 }
